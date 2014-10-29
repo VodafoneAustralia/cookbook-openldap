@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "openldap::client"
-include_recipe "openssh"
+include_recipe 'openldap::client'
+include_recipe 'openssh'
 
 node['openldap']['packages']['auth'].each do |pkg|
   package pkg do
@@ -26,33 +26,33 @@ node['openldap']['packages']['auth'].each do |pkg|
   end
 end
 
-template "/etc/ldap.conf" do
-  source "ldap.conf.erb"
+template '/etc/ldap.conf' do
+  source 'ldap.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
 
 template "#{node['openldap']['dir']}/ldap.conf" do
-  source "ldap-ldap.conf.erb"
+  source 'ldap-ldap.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
 
 cookbook_file '/etc/pam.d/ldap' do
   source 'pam.d-ldap'
   mode 00644
-  owner "root"
-  group "root"
-  notifies :restart, "service[ssh]", :delayed
+  owner 'root'
+  group 'root'
+  notifies :restart, 'service[ssh]', :delayed
 end
 
-template "/etc/security/login_access.conf" do
-  source "login_access.conf.erb"
+template '/etc/security/login_access.conf' do
+  source 'login_access.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
 
 template '/etc/nslcd.conf' do
@@ -64,9 +64,9 @@ service 'nslcd' do
   action [:enable, :restart]
 end
 
-cookbook_file "/etc/nsswitch.conf" do
-  source "nsswitch.conf"
+cookbook_file '/etc/nsswitch.conf' do
+  source 'nsswitch.conf'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end

@@ -1,7 +1,7 @@
 describe_recipe 'openldap::server' do
 
   it 'runs slapd' do
-    service("slapd").must_be_running
+    service('slapd').must_be_running
   end
 
   it 'sets the rootpw' do
